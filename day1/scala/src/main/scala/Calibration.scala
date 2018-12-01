@@ -3,9 +3,6 @@ import scala.io.Source
 
 object Calibration {
 
-  def parseNumbers(list: List[String]): List[Int] = list.map(removePlusSign).map(_.toInt)
-  private def removePlusSign(num: String) = if (num startsWith "+") num.substring(1) else num
-
   def computeFrequencyPart1(changes: List[Int]): Int = changes.sum
 
   def computeFrequencyPart2(changes: List[Int]): Int = {
@@ -21,7 +18,7 @@ object Calibration {
   }
 
   def main(args: Array[String]): Unit = {
-    val changes = parseNumbers(Source.fromResource("input.txt").getLines().toList)
+    val changes = Source.fromResource("input.txt").getLines().toList.map(_.toInt)
 
     val result1 = computeFrequencyPart1(changes)
     println(result1)
