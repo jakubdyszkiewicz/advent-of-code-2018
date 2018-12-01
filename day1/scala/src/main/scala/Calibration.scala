@@ -3,12 +3,12 @@ import scala.io.Source
 
 object Calibration {
 
-  def parseNumbers(list: List[String]): List[Int] =
-    list.map(change => change.substring(1).toInt * (if (change.charAt(0) == '-') -1 else 1))
+  def parseNumbers(list: List[String]): List[Int] = list.map(removePlusSign).map(_.toInt)
+  private def removePlusSign(num: String) = if (num startsWith "+") num.substring(1) else num
 
   def computeFrequencyPart1(list: List[Int]): Int = list.sum
 
-  def computeFrequencyPart2(list: List[Int]): Int = {
+  def computeFrequencyPart2(list: List[Int])(currentFreq: Int = 0, visitedFreqs: Set[Int] = Set()): Int = {
 
     @tailrec def computeFrequencyRec(list: List[Int], currentFreq: Int, visitedFreqs: Set[Int]): (Int, Set[Int]) = {
       if (list.isEmpty) {
@@ -19,16 +19,13 @@ object Calibration {
       else computeFrequencyRec(list.tail, nextFreq, visitedFreqs + nextFreq)
     }
 
-    val currentFreq = 0
-    val visitedFreqs = Set(0)
-    do {
-      (currentFreq, visitedFreqs) = computeFrequencyRec(list, currentFreq, visitedFreqs)
-    } while (visitedFreqs contains currentFreq)
-    currentFreq
+    if (visitedFreqs contains currentFreq) currentFreq
+    else computeFrequencyPart2(list).tupled(computeFrequencyRec(list, currentFreq, visitedFreqs))
   }
 
   def main(args: Array[String]): Unit = {
     val frequencies = parseNumbers(Source.fromResource("input.txt").getLines().toList)
+
     val result1 = computeFrequencyPart1(frequencies)
     println(result1)
 
