@@ -6,21 +6,18 @@ object Calibration {
   def parseNumbers(list: List[String]): List[Int] = list.map(removePlusSign).map(_.toInt)
   private def removePlusSign(num: String) = if (num startsWith "+") num.substring(1) else num
 
-  def computeFrequencyPart1(list: List[Int]): Int = list.sum
+  def computeFrequencyPart1(changes: List[Int]): Int = changes.sum
 
-  def computeFrequencyPart2(list: List[Int])(currentFreq: Int = 0, visitedFreqs: Set[Int] = Set()): Int = {
+  def computeFrequencyPart2(changes: List[Int]): Int = {
 
-    @tailrec def visitFrequencies(list: List[Int], currentFreq: Int, visitedFreqs: Set[Int]): (Int, Set[Int]) = {
-      if (list.isEmpty) {
-        return (currentFreq, visitedFreqs)
-      }
-      val nextFreq = currentFreq + list.head
-      if (visitedFreqs contains nextFreq) (nextFreq, visitedFreqs)
-      else visitFrequencies(list.tail, nextFreq, visitedFreqs + nextFreq)
+    @tailrec def visitFrequencies(changes: Stream[Int], currentFreq: Int, visitedFreqs: Set[Int]): Int = {
+      val nextFreq = currentFreq + changes.head
+      if (visitedFreqs contains nextFreq) nextFreq
+      else visitFrequencies(changes.tail, nextFreq, visitedFreqs + nextFreq)
     }
 
-    if (visitedFreqs contains currentFreq) currentFreq
-    else computeFrequencyPart2(list).tupled(visitFrequencies(list, currentFreq, visitedFreqs))
+    val repeatingChanges = Stream.continually(changes.toStream).flatten
+    visitFrequencies(repeatingChanges, currentFreq = 0, visitedFreqs = Set(0))
   }
 
   def main(args: Array[String]): Unit = {
