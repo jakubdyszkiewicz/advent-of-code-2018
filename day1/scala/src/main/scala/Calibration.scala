@@ -10,26 +10,26 @@ object Calibration {
 
   def computeFrequencyPart2(list: List[Int])(currentFreq: Int = 0, visitedFreqs: Set[Int] = Set()): Int = {
 
-    @tailrec def computeFrequencyRec(list: List[Int], currentFreq: Int, visitedFreqs: Set[Int]): (Int, Set[Int]) = {
+    @tailrec def visitFrequencies(list: List[Int], currentFreq: Int, visitedFreqs: Set[Int]): (Int, Set[Int]) = {
       if (list.isEmpty) {
         return (currentFreq, visitedFreqs)
       }
       val nextFreq = currentFreq + list.head
       if (visitedFreqs contains nextFreq) (nextFreq, visitedFreqs)
-      else computeFrequencyRec(list.tail, nextFreq, visitedFreqs + nextFreq)
+      else visitFrequencies(list.tail, nextFreq, visitedFreqs + nextFreq)
     }
 
     if (visitedFreqs contains currentFreq) currentFreq
-    else computeFrequencyPart2(list).tupled(computeFrequencyRec(list, currentFreq, visitedFreqs))
+    else computeFrequencyPart2(list).tupled(visitFrequencies(list, currentFreq, visitedFreqs))
   }
 
   def main(args: Array[String]): Unit = {
-    val frequencies = parseNumbers(Source.fromResource("input.txt").getLines().toList)
+    val changes = parseNumbers(Source.fromResource("input.txt").getLines().toList)
 
-    val result1 = computeFrequencyPart1(frequencies)
+    val result1 = computeFrequencyPart1(changes)
     println(result1)
 
-    val result2 = computeFrequencyPart2(frequencies)
+    val result2 = computeFrequencyPart2(changes)
     println(result2)
   }
 }
