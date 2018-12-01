@@ -1,3 +1,4 @@
+import scala.annotation.tailrec
 import scala.io.Source
 
 object Calibration {
@@ -8,22 +9,22 @@ object Calibration {
   def computeFrequencyPart1(list: List[Int]): Int = list.sum
 
   def computeFrequencyPart2(list: List[Int]): Int = {
-    var currentFreq = 0
-    var alreadySetFrequencies = Set(0)
-    while (true) {
-      val res = list.find(change => {
-        currentFreq += change
-        val res1 = alreadySetFrequencies.contains(currentFreq)
-        if (!res1) {
-          alreadySetFrequencies += currentFreq
-        }
-        res1
-      })
-      if (res.nonEmpty) {
-        return currentFreq
+
+    @tailrec def computeFrequencyRec(list: List[Int], currentFreq: Int, visitedFreqs: Set[Int]): (Int, Set[Int]) = {
+      if (list.isEmpty) {
+        return (currentFreq, visitedFreqs)
       }
+      val nextFreq = currentFreq + list.head
+      if (visitedFreqs contains nextFreq) (nextFreq, visitedFreqs)
+      else computeFrequencyRec(list.tail, nextFreq, visitedFreqs + nextFreq)
     }
-    return -1
+
+    val currentFreq = 0
+    val visitedFreqs = Set(0)
+    do {
+      (currentFreq, visitedFreqs) = computeFrequencyRec(list, currentFreq, visitedFreqs)
+    } while (visitedFreqs contains currentFreq)
+    currentFreq
   }
 
   def main(args: Array[String]): Unit = {
