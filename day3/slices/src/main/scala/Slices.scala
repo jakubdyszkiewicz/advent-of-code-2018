@@ -3,7 +3,7 @@ import scala.io.Source
 object Slices {
 
   implicit class Crossable[X](xs: Traversable[X]) {
-    def cross[Y](ys: Traversable[Y]): Traversable[(X, Y)] = for {x <- xs; y <- ys } yield (x, y)
+    def cross[Y](ys: Traversable[Y]): Traversable[(X, Y)] = for { x <- xs; y <- ys } yield (x, y)
   }
 
   case class Claim(id: Int, startX: Int, startY: Int, width: Int, height: Int) {
@@ -15,8 +15,8 @@ object Slices {
   class Area(val fields: Map[Coordinates, Set[Claim]] = Map()) {
 
     def claim(claim: Claim): Area = {
-      val claims = Range(claim.startX, claim.startX + claim.width)
-        .cross(Range(claim.startY, claim.startY + claim.height))
+      val claims = (claim.startX until claim.startX + claim.width)
+        .cross(claim.startY until claim.startY + claim.height)
         .map(coords => coords -> (fields.getOrElse(coords, Set()) + claim))
         .toMap
       new Area(fields ++ claims)
