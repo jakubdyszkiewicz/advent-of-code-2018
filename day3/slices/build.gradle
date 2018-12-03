@@ -1,0 +1,30 @@
+group 'org.jakubd'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'scala'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+dependencies {
+    compile(
+            'org.scala-lang:scala-library:2.12.7'
+    )
+
+    testCompile (
+            'junit:junit:4.12'
+            ,'org.scalatest:scalatest_2.11:2.12.7'
+            ,'org.scala-lang.modules:scala-xml_2.11:1.0.5'
+    )
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.13'
+}
+
