@@ -29,7 +29,7 @@ object Slices {
       fields.filter { case(_, claims) => claims.size == 1 }
         .groupBy { case(_, claims) => claims.head }
         .find { case(coords, claims) => coords.size == claims.size }
-        .map { case(coords, _) => coords.id }
+        .map { case(claim, _) => claim.id }
 
   }
 
