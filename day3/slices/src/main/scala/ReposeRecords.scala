@@ -4,7 +4,7 @@ import java.time.format.DateTimeFormatter
 import scala.io.Source
 
 // todo move to multimodule project
-object ReposeRecord {
+object ReposeRecords {
 
   implicit val localDateOrdering: Ordering[LocalDateTime] = _ compareTo _
 
