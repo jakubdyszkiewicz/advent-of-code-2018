@@ -1,9 +1,10 @@
+package day4
+
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 import scala.io.Source
 
-// todo move to multimodule project
 object ReposeRecords {
 
   implicit val localDateOrdering: Ordering[LocalDateTime] = _ compareTo _
@@ -70,7 +71,7 @@ object ReposeRecords {
   }
 
   def main(args: Array[String]): Unit = {
-    val records = Source.fromResource("inputDay4.txt").getLines
+    val records = Source.fromResource("day4/input.txt").getLines
       .map(parseRecord)
       .toSeq
       .sortBy(_.date)

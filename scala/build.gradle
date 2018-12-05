@@ -1,4 +1,4 @@
-group 'org.jakubd'
+group 'org.jakubd.aoc'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'scala'
@@ -18,13 +18,11 @@ dependencies {
     )
 
     testCompile (
-            'junit:junit:4.12'
-            ,'org.scalatest:scalatest_2.11:2.12.7'
-            ,'org.scala-lang.modules:scala-xml_2.11:1.0.5'
+            'junit:junit:4.12',
+            'org.scalatest:scalatest_2.12:3.0.5'
     )
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.13'
+wrapper {
+    gradleVersion = '5.0'
 }
-

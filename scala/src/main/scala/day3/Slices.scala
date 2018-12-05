@@ -40,7 +40,7 @@ object Slices {
   }
 
   def main(args: Array[String]): Unit = {
-    val claims = Source.fromResource("inputDay3.txt").getLines
+    val claims = Source.fromResource("day3/input.txt").getLines
       .map(parseClaim)
       .toList
     val area = claims.foldLeft(new Area()) { (area, claim) => area.claim(claim) }

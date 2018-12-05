@@ -1,3 +1,5 @@
+package day2
+
 import scala.io.Source
 
 object Inventory {
@@ -40,7 +42,7 @@ object Inventory {
   }
 
   def main(args: Array[String]): Unit = {
-    val boxes = Source.fromResource("day2input.txt").getLines.toSeq
+    val boxes = Source.fromResource("day2/input.txt").getLines.toSeq
     println(checksum(boxes))
 
     val sampleBoxes = List("abcdef", "bababc", "abbcde", "abcccd", "aabcdd", "abcdee", "ababab")

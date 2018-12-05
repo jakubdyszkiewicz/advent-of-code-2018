@@ -1,3 +1,5 @@
+package day1
+
 import scala.annotation.tailrec
 import scala.io.Source
 
@@ -18,7 +20,7 @@ object Calibration {
   }
 
   def main(args: Array[String]): Unit = {
-    val changes = Source.fromResource("input.txt").getLines().toList.map(_.toInt)
+    val changes = Source.fromResource("day1/input.txt").getLines().toList.map(_.toInt)
 
     val result1 = computeFrequencyPart1(changes)
     println(result1)
