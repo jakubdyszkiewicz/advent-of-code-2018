@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="97f0af59-42c4-4883-a952-bcb56d385c7d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../scala/src/test/scala/day5/AlchemicalReductionSpec.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../day1/scala/src/main/resources/input.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../day1/scala/src/main/scala/Calibration.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../day2/scala/src/main/resources/day2input.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../day2/scala/src/main/scala/Inventory.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/inputDay3.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/inputDay4.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/inputDay5.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Day4.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/ReposeRecords.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/Slices.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -52,7 +42,7 @@
     <session id="-1006352038">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="3" />
           <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.opened" value="3" />
@@ -89,19 +79,6 @@
         </counts>
       </usages-collector>
     </session>
-  </component>
-  <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/build.gradle">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" selection-start-line="3" selection-end-line="28" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -298,7 +275,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="6175365007000" />
+        <entry key="$PROJECT_DIR$" value="0" />
         <entry key="$PROJECT_DIR$/.gradle" value="0" />
         <entry key="$PROJECT_DIR$/build.gradle" value="3439830718" />
         <entry key="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" value="2007532874" />
@@ -521,7 +498,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544025450920" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1544033924842" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Scala" />
@@ -608,12 +585,12 @@
       <updated>1543834187114</updated>
       <workItem from="1543834189652" duration="10252000" />
       <workItem from="1543942230335" duration="2483000" />
-      <workItem from="1543944767335" duration="18874000" />
+      <workItem from="1543944767335" duration="19297000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31609000" />
+    <option name="totallyTimeSpent" value="32032000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1706" height="1377" extended-state="0" />
