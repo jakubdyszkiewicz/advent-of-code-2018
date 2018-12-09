@@ -20,14 +20,14 @@ object MarbleMania {
 
     override def previous(): T = {
       if (!curIterator.hasPrevious) {
-        curIterator = list.listIterator(list.size - 1)
+        curIterator = list.listIterator(list.size)
       }
       curIterator.previous
     }
 
-    override def nextIndex(): Int = ??? //curIterator.previousIndex()
+    override def nextIndex(): Int = ???
 
-    override def previousIndex(): Int = ??? //curIterator.nextIndex()
+    override def previousIndex(): Int = ???
 
     override def set(e: T): Unit = curIterator.set(e)
 
@@ -38,6 +38,8 @@ object MarbleMania {
       next()
     }
 
+    override def remove(): Unit = curIterator.remove()
+
     def removeReturning(): T = {
       val value = current
       curIterator.remove()
@@ -45,29 +47,27 @@ object MarbleMania {
     }
   }
 
-  def highScore(nPlayers: Int, pointsLimit: Int): Int = {
-    var scores = List.fill(nPlayers)(0)
+  def highScore(nPlayers: Int, pointsLimit: Int): Long = {
+    var scores = List.fill(nPlayers)(0L)
     val marbles = new CyclicIterator(new util.LinkedList[Int]())
     marbles.add(0)
 
-    var curPlayer = 0
-    var nextMarble = 1
-    while (nextMarble < pointsLimit) {
+    (1 until pointsLimit).foreach { nextMarble =>
+      val player = nextMarble % nPlayers
       if (nextMarble % 23 == 0) {
-        1 to 7 foreach { _ => marbles.previous() }
-        scores = scores.updated(curPlayer, scores(curPlayer) + nextMarble + marbles.removeReturning())
+        (1 to 7).foreach(_ => marbles.previous())
+        scores = scores.updated(player, scores(player) + nextMarble + marbles.removeReturning())
+        marbles.next()
       } else {
         marbles.next()
         marbles.add(nextMarble)
       }
-      curPlayer = (curPlayer + 1) % nPlayers
-      nextMarble += 1
     }
     scores.max
   }
 
   def main(args: Array[String]): Unit = {
-    //    println(highScore(nPlayers = 419, pointsLimit = 71052))
-    println(highScore(nPlayers = 419, pointsLimit = 71052 * 100))
+    println("Part1 " + highScore(nPlayers = 419, pointsLimit = 71052))
+    println("Part2 " + highScore(nPlayers = 419, pointsLimit = 71052 * 100))
   }
 }
