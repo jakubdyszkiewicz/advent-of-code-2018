@@ -1,58 +1,73 @@
 package day9
 
-import scala.collection.mutable
+import java.util
 
 object MarbleMania {
 
+  class CyclicIterator[T](list: util.List[T]) extends util.ListIterator[T] {
+    private var curIterator = list.listIterator()
+
+    override def hasNext: Boolean = curIterator.hasNext || curIterator.hasPrevious
+
+    override def next(): T = {
+      if (!curIterator.hasNext) {
+        curIterator = list.listIterator()
+      }
+      curIterator.next
+    }
+
+    override def hasPrevious: Boolean = !list.isEmpty
+
+    override def previous(): T = {
+      if (!curIterator.hasPrevious) {
+        curIterator = list.listIterator(list.size - 1)
+      }
+      curIterator.previous
+    }
+
+    override def nextIndex(): Int = ??? //curIterator.previousIndex()
+
+    override def previousIndex(): Int = ??? //curIterator.nextIndex()
+
+    override def set(e: T): Unit = curIterator.set(e)
+
+    override def add(e: T): Unit = curIterator.add(e)
+
+    def current: T = {
+      previous()
+      next()
+    }
+
+    def removeReturning(): T = {
+      val value = current
+      curIterator.remove()
+      value
+    }
+  }
+
   def highScore(nPlayers: Int, pointsLimit: Int): Int = {
     var scores = List.fill(nPlayers)(0)
-    var marbles = List(0, 1)
-    var curMarbleIndex = 1
-    var curMarble = marbles(curMarbleIndex)
+    val marbles = new CyclicIterator(new util.LinkedList[Int]())
+    marbles.add(0)
+
     var curPlayer = 0
-    while (curMarble < pointsLimit) {
-      if (curMarble % 1000 == 0) {
-        println(curMarble)
-      }
-      val nextMarble = curMarble + 1
+    var nextMarble = 1
+    while (nextMarble < pointsLimit) {
       if (nextMarble % 23 == 0) {
-        var marbleToRemoveIndex = curMarbleIndex - 7
-        if (marbleToRemoveIndex < 0) {
-          marbleToRemoveIndex += marbles.size
-        }
-        scores = scores.updated(curPlayer, scores(curPlayer) + nextMarble + marbles(marbleToRemoveIndex))
-        marbles = removeAtIndex(marbles, marbleToRemoveIndex)
-
-        val nextMarbleIndex = marbleToRemoveIndex % marbles.size
-
-        curMarble = nextMarble
-        curMarbleIndex = nextMarbleIndex
+        1 to 7 foreach { _ => marbles.previous() }
+        scores = scores.updated(curPlayer, scores(curPlayer) + nextMarble + marbles.removeReturning())
       } else {
-        var nextMarbleIndex = (curMarbleIndex + 2) % marbles.size
-        if (nextMarbleIndex == 0) {
-          nextMarbleIndex = marbles.size
-        }
-
-        marbles = insert(marbles, nextMarbleIndex, nextMarble)
-        curMarble = nextMarble
-        curMarbleIndex = nextMarbleIndex
-        curPlayer = (curPlayer + 1) % nPlayers
+        marbles.next()
+        marbles.add(nextMarble)
       }
+      curPlayer = (curPlayer + 1) % nPlayers
+      nextMarble += 1
     }
     scores.max
   }
 
-  def insert[T](list: List[T], i: Int, value: T): List[T] = {
-    val (front, back) = list.splitAt(i)
-    front ++ List(value) ++ back
-  }
-
-  def removeAtIndex[T](list: List[T], idx: Int): List[T] = {
-    list.take(idx) ++ list.drop(idx + 1)
-  }
-
   def main(args: Array[String]): Unit = {
-//    println(highScore(nPlayers = 419, pointsLimit = 71052))
+    //    println(highScore(nPlayers = 419, pointsLimit = 71052))
     println(highScore(nPlayers = 419, pointsLimit = 71052 * 100))
   }
 }
