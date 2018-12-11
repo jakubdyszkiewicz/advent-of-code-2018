@@ -1,10 +1,8 @@
 import scala.io.Source
 
-object Slices {
+import commons.Crossable.Crossable
 
-  implicit class Crossable[X](xs: Traversable[X]) {
-    def cross[Y](ys: Traversable[Y]): Traversable[(X, Y)] = for { x <- xs; y <- ys } yield (x, y)
-  }
+object Slices {
 
   case class Claim(id: Int, startX: Int, startY: Int, width: Int, height: Int) {
     def size: Int = width * height

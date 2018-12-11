@@ -3,12 +3,9 @@ package day6
 import java.util.concurrent.atomic.AtomicInteger
 
 import scala.io.Source
+import commons.Crossable.Crossable
 
 object ChronalCoordinates {
-
-  implicit class Crossable[X](xs: Traversable[X]) {
-    def cross[Y](ys: Traversable[Y]): Traversable[(X, Y)] = for { x <- xs; y <- ys } yield (x, y)
-  }
 
   case class Coord(id: Int, x: Int, y: Int)
 

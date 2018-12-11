@@ -1,5 +1,7 @@
 package day11
 
+import commons.Crossable.Crossable
+
 object ChronalCharge {
 
   type Matrix = Array[Array[Int]]
@@ -32,33 +34,32 @@ object ChronalCharge {
 
   case class Square(topLeftX: Int, topLeftY: Int, sum: Int)
 
-  private def findMaxSumSquareTopLeftCorner(prefixSumMatrix: Matrix, squareSize: Int): Square = {
-    var square = Square(topLeftX = 0, topLeftY = 0, sum = Integer.MIN_VALUE)
-    for (x <- squareSize to 300) {
-      for (y <- squareSize to 300) {
-        val sum = prefixSumMatrix(x)(y) - prefixSumMatrix(x - squareSize)(y) - prefixSumMatrix(x)(y - squareSize) + prefixSumMatrix(x - squareSize)(y - squareSize)
-        if (sum > square.sum) {
-          square = Square(
-            topLeftX = x - squareSize + 1,
-            topLeftY = y - squareSize + 1,
-            sum = sum)
-        }
+  private def findMaxSumSquare(prefixSumMatrix: Matrix, squareSize: Int): Square =
+    (squareSize to 300)
+      .cross(squareSize to 300)
+      .map { case(x, y) =>
+        val sum = prefixSumMatrix(x)(y) -
+          prefixSumMatrix(x - squareSize)(y) -
+          prefixSumMatrix(x)(y - squareSize) +
+          prefixSumMatrix(x - squareSize)(y - squareSize)
+        Square(
+          topLeftX = x - squareSize + 1,
+          topLeftY = y - squareSize + 1,
+          sum = sum)
       }
-    }
-    square
-  }
+      .maxBy(square => square.sum)
 
   def solve1(serialNum: Int): Square = {
     val matrix = createArray(serialNum)
     val prefSumMatrix = prefixSumMatrix(matrix)
-    findMaxSumSquareTopLeftCorner(prefSumMatrix, squareSize = 3)
+    findMaxSumSquare(prefSumMatrix, squareSize = 3)
   }
 
   def solve2(serialNum: Int): (Square, Int) = {
     val matrix = createArray(serialNum)
     val prefSumMatrix = prefixSumMatrix(matrix)
     (1 to 300)
-      .map(squareSize => findMaxSumSquareTopLeftCorner(prefSumMatrix, squareSize) -> squareSize)
+      .map(squareSize => findMaxSumSquare(prefSumMatrix, squareSize) -> squareSize)
       .maxBy { case(square, squareSize) => square.sum }
   }
 
