@@ -47,7 +47,7 @@ object ChocolateCharts {
     val result = makeRecipesUntilScore(633601)
     println(result.foldLeft("") { _ + _ })
 
-    val part2 = makeRecipesUntilSequence("633601") // 20310467 is too high
+    val part2 = makeRecipesUntilSequence("633601")
     println(part2)
   }
 }
